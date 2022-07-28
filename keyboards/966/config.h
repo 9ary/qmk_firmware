@@ -19,8 +19,16 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define SPLIT_HAND_PIN B8
+/*
+ * Space Cadet Shift
+ */
+#define LCPO_KEYS KC_LCTL, KC_LSFT, KC_LEFT_BRACKET
+#define RCPC_KEYS KC_RCTL, KC_RSFT, KC_RIGHT_BRACKET
 
+/*
+ * Split configuration
+ */
+#define SPLIT_HAND_PIN B8
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN A2     // USART TX pin
 #define SERIAL_USART_RX_PIN A3     // USART RX pin
@@ -38,3 +46,8 @@
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_RX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT 20    // USART driver timeout. default 20
+
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 6
+#define BOOTMAGIC_LITE_ROW_RIGHT 5
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 6

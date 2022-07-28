@@ -5,9 +5,9 @@ in
 # However, if you want to override Niv's inputs, this will let you do that.
 { pkgs ? import sources.nixpkgs { }
 , poetry2nix ? pkgs.callPackage (import sources.poetry2nix) { }
-, avr ? true
+, avr ? false
 , arm ? true
-, teensy ? true }:
+, teensy ? false }:
 with pkgs;
 let
   avrlibc = pkgsCross.avr.libcCross;
