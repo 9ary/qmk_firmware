@@ -7,7 +7,31 @@ enum layers {
     LAYER_MEDIA,
 };
 
-const uint16_t PROGMEM combo_nav_left[] = {KC_LGUI, KC_SPACE, COMBO_END};
+enum tap_dance {
+    DANCE_LGUI,
+};
+
+void dance_lgui_tap(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code16(KC_LGUI);
+    } else if (state->count == 2) {
+        register_code16(KC_ENTER);
+        state->finished = true;
+    }
+}
+
+void dance_lgui_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        unregister_code16(KC_ENTER);
+    }
+    unregister_code16(KC_LGUI);
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [DANCE_LGUI] = ACTION_TAP_DANCE_FN_ADVANCED(dance_lgui_tap, NULL, dance_lgui_reset),
+};
+
+const uint16_t PROGMEM combo_nav_left[] = {TD(DANCE_LGUI), KC_SPACE, COMBO_END};
 const uint16_t PROGMEM combo_nav_right[] = {KC_RSFT, KC_RAPC, COMBO_END};
 combo_t key_combos[] = {
     COMBO(combo_nav_left, MO(LAYER_NAV)),
@@ -18,11 +42,11 @@ uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(combo_t);
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_DEFAULT] = LAYOUT_default(
         // Left hand
-        KC_APP,  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_INS,
-        KC_BSLS, KC_SLSH, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_DEL,
-                 KC_LSPO, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_TAB,
-                 KC_LCPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LALT,
-                                                     KC_LGUI, KC_SPC,  KC_ENT,
+        KC_APP,  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,           KC_5,    KC_INS,
+        KC_BSLS, KC_SLSH, KC_Q,    KC_W,    KC_E,    KC_R,           KC_T,    KC_DEL,
+                 KC_LSPO, KC_A,    KC_S,    KC_D,    KC_F,           KC_G,    KC_TAB,
+                 KC_LCPO, KC_Z,    KC_X,    KC_C,    KC_V,           KC_B,    KC_LALT,
+                                                     TD(DANCE_LGUI), KC_SPC,  KC_ENT,
 
         // Right hand
         XXXXXXX,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
