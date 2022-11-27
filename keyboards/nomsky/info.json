@@ -10,9 +10,8 @@
         "command": false,
         "console": true,
         "extrakey": true,
-        "mousekey": true,
         "nkro": true,
-        "tap_dance": true
+        "caps_word": true
     },
     "matrix_pins": {
         "cols": ["B5", "B4", "B3", "A15", "B15", "B7", "B8"],
@@ -26,6 +25,10 @@
                 "rows": ["B0", "A1", "C13"]
             }
         }
+    },
+    "tapping": {
+        "ignore_mod_tap_interrupt": true,
+        "permissive_hold": true
     },
     "processor": "STM32F401",
     "url": "",
