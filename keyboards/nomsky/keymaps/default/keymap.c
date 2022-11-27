@@ -14,11 +14,13 @@ const uint16_t PROGMEM combo_layer_nav[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_backspace[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_layer_symbols[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM combo_layer_symbols_shifted[] = {KC_X, KC_C, COMBO_END};
 
 // Right hand
 const uint16_t PROGMEM combo_enter[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM combo_escape[] = {KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM combo_layer_numbers[] = {KC_M, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM combo_layer_numbers_shifted[] = {KC_COMMA, KC_DOT, COMBO_END};
 
 // Both hands
 const uint16_t PROGMEM combo_caps_word[] = {KC_F, KC_J, COMBO_END};
@@ -29,11 +31,13 @@ combo_t key_combos[] = {
     COMBO(combo_tab, KC_TAB),
     COMBO(combo_backspace, KC_BACKSPACE),
     COMBO(combo_layer_symbols, MO(L_SYM)),
+    COMBO(combo_layer_symbols_shifted, LM(L_SYM, MOD_LSFT)),
 
     // Right hand
     COMBO(combo_enter, KC_ENTER),
     COMBO(combo_escape, KC_ESCAPE),
     COMBO(combo_layer_numbers, MO(L_NUM)),
+    COMBO(combo_layer_numbers_shifted, LM(L_NUM, MOD_LSFT)),
 
     // Both hands
     COMBO(combo_caps_word, CAPS_WORD),
@@ -89,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // Right hand
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_DEL,  KC_GRV,  KC_SLSH, KC_BSLS, XXXXXXX,
-        KC_LCBR, KC_LBRC, KC_RBRC, KC_RCBR, XXXXXXX,
+        XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
         _______, _______
     ),
 
