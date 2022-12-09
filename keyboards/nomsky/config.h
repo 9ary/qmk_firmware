@@ -20,7 +20,6 @@
 //#define NO_ACTION_ONESHOT
 
 #define COMBO_ONLY_FROM_LAYER 0
-#define COMBO_TERM_PER_COMBO
 
 #define SPLIT_HAND_PIN B13
 

@@ -27,6 +27,7 @@
         }
     },
     "tapping": {
+        "toggle": 1,
         "ignore_mod_tap_interrupt": true,
         "permissive_hold": true
     },
