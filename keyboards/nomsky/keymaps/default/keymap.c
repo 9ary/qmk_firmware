@@ -31,10 +31,12 @@ combo_t key_combos[] = {
 };
 uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(combo_t);
 
-layer_state_t layer_state_set_kb(layer_state_t state) {
-    state = IS_LAYER_OFF_STATE(state, L_SYM) ? (state & ~((layer_state_t) 1 << L_NAV)) : state;
-    return state;
-}
+struct {
+    uint8_t upper;
+    uint8_t lower;
+} PROGMEM tt_sublayers[] = {
+    {L_NAV, L_SYM},
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_BASE] = LAYOUT_default(
@@ -54,13 +56,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_DEF] = LAYOUT_default(
         // Left hand
         KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,
-        KC_A,    MT(MOD_LALT, KC_R), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_T),    KC_G,
+        KC_A,    LALT_T(KC_R), LGUI_T(KC_S), LCTL_T(KC_T),    KC_G,
         KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,
                                    LT(L_SYM, KC_SPC), OSM(MOD_LSFT),
 
         // Right hand
         KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
-        KC_M,    MT(MOD_RCTL, KC_N), MT(MOD_RGUI, KC_E), MT(MOD_RALT, KC_I),    KC_O,
+        KC_M,    RCTL_T(KC_N), RGUI_T(KC_E), RALT_T(KC_I),    KC_O,
         KC_K,    KC_H,    _______, _______, _______,
         OSM(MOD_RSFT), LT(L_NUM, KC_BSPC)
     ),
@@ -122,10 +124,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     default_layer_set(1 << L_DEF);
+
     //debug_enable=true;
     //debug_matrix=true;
     //debug_keyboard=true;
     //debug_mouse=true;
+
+    keyboard_post_init_user();
+}
+
+layer_state_t held_tt_layers = 0;
+
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    for (uint32_t i = 0; i < sizeof(tt_sublayers) / sizeof(tt_sublayers[0]); i++) {
+        if (IS_LAYER_OFF_STATE(state, tt_sublayers[i].lower)) {
+            state &= ~((layer_state_t)1 << tt_sublayers[i].upper);
+        }
+    }
+    state |= held_tt_layers;
+
+    return default_layer_state_set_user(state);
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+        {
+            layer_state_t mask = (layer_state_t)1 << (keycode & 0xFF);
+            if (record->event.pressed) {
+                held_tt_layers |= mask;
+            } else {
+                held_tt_layers &= ~mask;
+            }
+            break;
+        }
+    }
+
+    return process_record_user(keycode, record);
 }
