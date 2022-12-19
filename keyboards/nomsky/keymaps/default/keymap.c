@@ -3,31 +3,21 @@
 enum layers {
     L_BASE,
     L_DEF,
-    L_NUM,
-    L_SYM,
+    L_LMODS,
+    L_RMODS,
+    L_LSYM,
+    L_RSYM,
     L_NAV,
     L_MEDIA,
     L_FN,
 };
 
-// Left hand
-const uint16_t PROGMEM combo_tab[] = {KC_D, KC_F, COMBO_END};
-
-// Right hand
-const uint16_t PROGMEM combo_enter[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM combo_escape[] = {KC_K, KC_L, COMBO_END};
-
-// Both hands
-const uint16_t PROGMEM combo_caps_word[] = {KC_LSFT, KC_RSFT, COMBO_END};
+const uint16_t PROGMEM combo_escape[] = {KC_U, KC_J, COMBO_END};
+const uint16_t PROGMEM compo_delete[] = {KC_I, KC_K, COMBO_END};
+const uint16_t PROGMEM combo_caps_word[] = {KC_F, KC_J, COMBO_END};
 combo_t key_combos[] = {
-    // Left hand
-    COMBO(combo_tab, KC_TAB),
-
-    // Right hand
-    COMBO(combo_enter, KC_ENTER),
     COMBO(combo_escape, KC_ESCAPE),
-
-    // Both hands
+    COMBO(compo_delete, KC_DELETE),
     COMBO(combo_caps_word, CAPS_WORD),
 };
 uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(combo_t);
@@ -36,8 +26,7 @@ struct {
     uint8_t upper;
     uint8_t lower;
 } PROGMEM tt_sublayers[] = {
-    {L_NAV, L_SYM},
-    {L_FN, L_NUM},
+    {L_FN, L_RMODS},
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -57,51 +46,84 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [L_DEF] = LAYOUT_default(
         // Left hand
-        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,
-        KC_A,    LALT_T(KC_R), LGUI_T(KC_S), LCTL_T(KC_T),    KC_G,
-        KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,
-                                   LT(L_SYM, KC_SPC), OSM(MOD_LSFT),
+        KC_Q,    KC_W,         KC_F,         KC_P,         KC_B,
+        KC_A,    LGUI_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), LALT_T(KC_G),
+        KC_Z,    KC_X,         KC_C,         KC_D,         KC_V,
+                                       LT(L_RSYM, KC_SPC), LT(L_NAV, KC_ENT),
 
         // Right hand
-        KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
-        KC_M,    RCTL_T(KC_N), RGUI_T(KC_E), RALT_T(KC_I),    KC_O,
-        KC_K,    KC_H,    _______, _______, _______,
-        OSM(MOD_RSFT), LT(L_NUM, KC_BSPC)
+        KC_J,         KC_L,         KC_U,         KC_Y,         KC_SCLN,
+        RALT_T(KC_M), RSFT_T(KC_N), RCTL_T(KC_E), RGUI_T(KC_I), KC_O,
+        KC_K,         KC_H,         _______,      _______,      _______,
+        KC_BSPC,      LT(L_LSYM, KC_TAB)
     ),
 
-    [L_NUM] = LAYOUT_default(
+    [L_LMODS] = LAYOUT_default(
         // Left hand
-        XXXXXXX, KC_1,    KC_2,    KC_3,    KC_MINS,
-        XXXXXXX, KC_4,    KC_5,    KC_6,    KC_EQL,
-        XXXXXXX, KC_7,    KC_8,    KC_9,    KC_0,
-                                   _______, _______,
+        XXXXXXX, XXXXXXX, MO(L_MEDIA), XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_LGUI, KC_LCTL,     KC_LSFT, KC_LALT,
+        XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX,
+                                       _______, _______,
 
         // Right hand
-        XXXXXXX, TT(L_FN), XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, KC_RCTL, KC_RGUI, KC_RALT, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         _______, _______
     ),
 
-    [L_SYM] = LAYOUT_default(
+    [L_RMODS] = LAYOUT_default(
         // Left hand
-        XXXXXXX, XXXXXXX, MO(L_MEDIA), TT(L_NAV), XXXXXXX,
-        XXXXXXX, KC_LALT, KC_LGUI, KC_LCTL, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                    _______, _______,
 
         // Right hand
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, TT(L_FN), XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_RALT, KC_RSFT,  KC_RCTL, KC_RGUI, XXXXXXX,
+        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, _______
+    ),
+
+    [L_LSYM] = LAYOUT_default(
+        // Left hand
+        KC_GRV,  KC_TILD, KC_LCBR, KC_LBRC, XXXXXXX,
+        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+        KC_BSLS, KC_SLSH, KC_PIPE, KC_QUES, XXXXXXX,
+                                   _______, _______,
+
+        // Right hand
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______
+    ),
+
+    [L_RSYM] = LAYOUT_default(
+        // Left hand
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+                                   _______, _______,
+
+        // Right hand
+        XXXXXXX, KC_RBRC, KC_RCBR, XXXXXXX, XXXXXXX,
+        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+        XXXXXXX, KC_UNDS, KC_PLUS, KC_MINS, KC_EQL,
+
+        /*
         KC_DEL,  KC_GRV,  KC_SLSH, KC_BSLS, XXXXXXX,
         XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
+        */
         _______, _______
     ),
 
     [L_NAV] = LAYOUT_default(
         // Left hand
-        XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX,
-        XXXXXXX, _______, _______, _______, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
                                    _______, _______,
 
         // Right hand
@@ -113,9 +135,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [L_MEDIA] = LAYOUT_default(
         // Left hand
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, _______, _______, _______, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
                                    _______, _______,
 
         // Right hand
@@ -133,9 +155,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______,
 
         // Right hand
-        XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, _______, _______, _______, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
         _______, _______
     ),
 };
@@ -151,12 +173,21 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
+#define LAYER_MASK(LAYER) ((layer_state_t)1 << LAYER)
 layer_state_t held_tt_layers = 0;
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
+    state &= ~(LAYER_MASK(L_LMODS) | LAYER_MASK(L_RMODS));
+    if (IS_LAYER_ON_STATE(state, L_LSYM)) {
+        state |= LAYER_MASK(L_RMODS);
+    }
+    if (IS_LAYER_ON_STATE(state, L_RSYM) || IS_LAYER_ON_STATE(state, L_NAV)) {
+        state |= LAYER_MASK(L_LMODS);
+    }
+
     for (uint32_t i = 0; i < sizeof(tt_sublayers) / sizeof(tt_sublayers[0]); i++) {
         if (IS_LAYER_OFF_STATE(state, tt_sublayers[i].lower)) {
-            state &= ~((layer_state_t)1 << tt_sublayers[i].upper);
+            state &= ~LAYER_MASK(tt_sublayers[i].upper);
         }
     }
     state |= held_tt_layers;
