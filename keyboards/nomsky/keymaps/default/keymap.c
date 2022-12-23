@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // Left hand
         KC_GRV,  KC_TILD, KC_LCBR, KC_LBRC, XXXXXXX,
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
-        KC_BSLS, KC_SLSH, KC_PIPE, KC_QUES, XXXXXXX,
+        XXXXXXX, KC_BSLS, KC_SLSH, KC_PIPE, KC_QUES,
                                    _______, _______,
 
         // Right hand
@@ -110,12 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // Right hand
         XXXXXXX, KC_RBRC, KC_RCBR, XXXXXXX, XXXXXXX,
         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-        XXXXXXX, KC_UNDS, KC_PLUS, KC_MINS, KC_EQL,
-
-        /*
-        KC_DEL,  KC_GRV,  KC_SLSH, KC_BSLS, XXXXXXX,
-        XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
-        */
+        KC_UNDS, KC_PLUS, KC_MINS, KC_EQL,  XXXXXXX,
         _______, _______
     ),
 
