@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______,
 
         // Right hand
-        XXXXXXX, TT(L_FN), XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, TT(L_FN), LM(L_FN, MOD_LCTL | MOD_LALT), XXXXXXX, XXXXXXX,
         KC_RALT, KC_RSFT,  KC_RCTL, KC_RGUI, XXXXXXX,
         XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
         _______, _______
