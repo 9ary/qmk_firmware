@@ -14,11 +14,11 @@ enum layers {
 
 const uint16_t PROGMEM combo_escape[] = {KC_U, KC_J, COMBO_END};
 const uint16_t PROGMEM compo_delete[] = {KC_I, KC_K, COMBO_END};
-const uint16_t PROGMEM combo_caps_word[] = {KC_F, KC_J, COMBO_END};
+const uint16_t PROGMEM combo_caps[] = {KC_F, KC_J, COMBO_END};
 combo_t key_combos[] = {
     COMBO(combo_escape, KC_ESCAPE),
     COMBO(compo_delete, KC_DELETE),
-    COMBO(combo_caps_word, CAPS_WORD),
+    COMBO(combo_caps, KC_CAPS_LOCK),
 };
 uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(combo_t);
 
