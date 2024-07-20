@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#include "features/achordion.h"
+
 enum layers {
     L_DEF,
     L_FN,
@@ -78,4 +80,37 @@ void keyboard_post_init_kb(void) {
     //debug_mouse=true;
 
     keyboard_post_init_user();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
+  if (!process_achordion(keycode, record)) {
+      return false;
+  }
+
+  return process_record_user(keycode, record);
+}
+
+void matrix_scan_kb(void) {
+  achordion_task();
+
+  matrix_scan_user();
+}
+
+bool achordion_chord(
+    uint16_t tap_hold_keycode,
+    keyrecord_t* tap_hold_record,
+    uint16_t other_keycode,
+    keyrecord_t* other_record
+) {
+  // Allow same-hand holds when the other key is in the rows below the alphas.
+  if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 3) {
+      return true;
+  }
+
+  // Otherwise, follow the opposite hands rule.
+  return achordion_opposite_hands(tap_hold_record, other_record);
+}
+
+bool achordion_eager_mod(uint8_t mod) {
+    return true;
 }
