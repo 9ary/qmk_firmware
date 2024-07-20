@@ -18,18 +18,18 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_DEF] = LAYOUT_default(
         // Left hand
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,
-        XXXXXXX, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    XXXXXXX,
-        XXXXXXX, KC_A,    HOME_R,  HOME_S,  HOME_T,  HOME_G,  XXXXXXX,
-        XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    XXXXXXX,
-        XXXXXXX, KC_HOME, KC_PGUP, KC_END,  KC_TAB,  KC_SPC,  KC_ENT,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_BSLS,
+        XXXXXXX, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_SLSH,
+        XXXXXXX, KC_A,    HOME_R,  HOME_S,  HOME_T,  HOME_G,  KC_LBRC,
+        XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_RBRC,
+        XXXXXXX, KC_HOME, KC_PGUP, KC_END,  CW_TOGG, KC_SPC,  KC_ENT,
                           KC_PGDN,
 
         // Right hand
         XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
         XXXXXXX, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_EQL,
-        XXXXXXX, HOME_M,  HOME_N,  HOME_E,  HOME_I,  KC_O,    KC_QUOT,
-        XXXXXXX, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
+        KC_TAB,  HOME_M,  HOME_N,  HOME_E,  HOME_I,  KC_O,    XXXXXXX,
+        XXXXXXX, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_QUOT, XXXXXXX,
         KC_BSPC, KC_ESC,  KC_DEL,  KC_LEFT, KC_UP,   KC_RGHT, XXXXXXX,
                                             KC_DOWN
     ),
